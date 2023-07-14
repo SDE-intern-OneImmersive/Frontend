@@ -1,34 +1,62 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter , RouterProvider } from 'react-router-dom'
-import './index.css'
+import React from 'react';
+import ReactDOM from 'react-dom/client'; 
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './index.css';
 
-import Root from './routes/Root'
-import Dashboard from './routes/Dashboard'
-import Applications from './routes/Applications'
-import Versions from './routes/version'
-import ErrorPage from '../error-page'
-import Billing from './routes/billing'
-import Profile from './routes/profile'
+import SideLayout from './routes/sidebar';
+import Dashboard from './routes/dashboard';
+import Applications from './routes/applications';
+import Versions from './routes/version';
+import ErrorPage from './error-page';
+import Billing from './routes/billing';
+import Profile from './routes/profile';
 
+import AppDataTable from './components/apptable';
+import DashDataTable from './components/dashtable';
+import VerDataTable from './components/vertable';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Root />,
+    element: <SideLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
-        element: <Dashboard />
+        element: <Dashboard />,
+        children: [
+          {
+            path: "/",
+            element: <DashDataTable />,
+          }
+        ]
       },
       {
-        path: 'applications',
-        element: <Applications />
+        path: '/applications',
+        element: <Applications />,
+        children: [
+          {
+            path: "/applications",
+            element: <AppDataTable />
+          },
+          {
+            path: "/applications/create",
+            element: <div>Create Application</div>
+          },
+        ]
       },
       {
         path: 'version',
-        element: <Versions />
+        element: <Versions />,
+        children: [
+          {
+            path: "/version",
+            element: <VerDataTable />
+          },
+          {
+            path: "version/create",
+            element: <div>Create Version</div>
+          }
+        ]
       },
       {
         path: 'billing',
@@ -41,8 +69,10 @@ const router = createBrowserRouter([
     ]
   }
 ])
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+    <RouterProvider router = {router} />
+  </React.StrictMode>
+);
+
