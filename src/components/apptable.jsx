@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 const columns = [
     { field: 'name', headerName: 'Name', width: 150 },
@@ -18,6 +23,17 @@ const rows = [
 
 export default function AppDataTable() {
     return (
+        <>
+        <Stack direction="row" spacing={2}>
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    <TextField variant='outlined' label='Search' />
+                </Grid>
+                <Grid item xs={4}>
+                    <Link to="/applications/create"><Button variant='contained'>Create Application</Button></Link>
+                </Grid>
+            </Grid>
+        </Stack>
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
                 rows={rows}
@@ -31,5 +47,6 @@ export default function AppDataTable() {
                 checkboxSelection
             />
         </div>
+        </>
     );
 }

@@ -272,3 +272,7 @@ i {
   padding: 2rem 4rem;
   width: 100%;
 }
+
+.css-vj1n65-MuiGrid-root {
+  display: flex;
+}

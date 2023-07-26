@@ -14,6 +14,7 @@ import Profile from './routes/profile';
 import AppDataTable from './components/apptable';
 import DashDataTable from './components/dashtable';
 import VerDataTable from './components/vertable';
+import AppCreate from './components/appcreate';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/applications/create",
-            element: <div>Create Application</div>
+            element: <AppCreate />
           },
         ]
       },
