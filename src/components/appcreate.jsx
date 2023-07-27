@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Button, Grid, Table, TextField } from '@mui/material';
 import axios from 'axios';
+
+import DropFileInput from './Drop-box/DropFileInput';
 // import { useHistory } from 'react-router-dom';
 
 export default function AppCreate() {
@@ -24,7 +26,7 @@ export default function AppCreate() {
         axios.post('http://localhost:5000/test/create', newApp)
             .then((response) => {
                 console.log(response);
-                alert('Created New Application: '+ response.data.name);
+                alert('Created New Application: ' + response.data.name);
                 // const history = useHistory();
                 // Navigate to the "/applications" page
                 // history.push('/applications');
@@ -34,27 +36,38 @@ export default function AppCreate() {
                 alert('Failed to Create Application');
             });
     }
+
+    const onFileChange = (files) => {
+        console.log(files);
+    }
+
     return (
         <>
             <CssBaseline />
             <Container maxWidth="lg">
-                <Box>
+                <Box style={{display: "flex" }}>
                     <Grid>
-                        <p style={{width: "50px"}}>Name:</p>
-                        <TextField variant='outlined' value={nameValue} onChange={onChangeName} style={{ paddingTop: "5px", paddingLeft:'10px', }} />
+                        <p style={{ width: "50px" }}>Name:</p>
+                        <TextField variant='outlined' value={nameValue} onChange={onChangeName} style={{ paddingTop: "5px", paddingLeft: '10px', }} />
                     </Grid>
                     <Grid>
                         <p>Registry:</p>
-                    <TextField variant='outlined' value={registryValue} onChange={onChangeRegistry} style={{ paddingTop: "5px", paddingBottom: "5px", paddingLeft:'10px',  }} />
+                        <TextField variant='outlined' value={registryValue} onChange={onChangeRegistry} style={{ paddingTop: "5px", paddingBottom: "5px", paddingLeft: '10px', }} />
 
                     </Grid>
-                    
+
                     <Button variant='contained' onClick={CreateAppfun} >
                         Submit
                     </Button>
                 </Box>
-            </Container >
-            
+
+                <Box>
+                <h2 style={{display: "flex", justifyContent: "center"}}>OR</h2>
+                <DropFileInput onFileChange={(files) => onFileChange(files)} />
+            </Box>
+
+        </Container >
+
         </>
     );
 }
