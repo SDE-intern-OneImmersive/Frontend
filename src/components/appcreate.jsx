@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Button, Grid, Table, TextField } from '@mui/material';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
 
 export default function AppCreate() {
     const [nameValue, setNameValue] = useState("");
@@ -24,13 +25,15 @@ export default function AppCreate() {
             .then((response) => {
                 console.log(response);
                 alert('Created New Application: '+ response.data.name);
+                // const history = useHistory();
+                // Navigate to the "/applications" page
+                // history.push('/applications');
             })
             .catch((error) => {
                 console.log(error);
                 alert('Failed to Create Application');
             });
     }
-
     return (
         <>
             <CssBaseline />
