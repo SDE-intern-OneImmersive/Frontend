@@ -12,7 +12,8 @@ export default function AppDataTable() {
 
   React.useEffect(() => {
     // Fetch data from the backend API
-    axios.get('http://localhost:5000/test')
+    axios
+      .get('http://localhost:5000/test')
       .then((response) => {
         // Modify the data to include the "id" property for each row
         const modifiedData = response.data.map((row) => ({
@@ -27,10 +28,22 @@ export default function AppDataTable() {
       });
   }, []);
 
+  // Custom click handler for the links in the DataGrid
+  const handleLinkClick = (event, url) => {
+    event.preventDefault();
+    window.open(url, '_blank');
+  };
+
   // Define the columns for the DataGrid
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'Registry', headerName: 'Registry', width: 200 },
+    {
+      field: 'Link',
+      headerName: 'URL',
+      width: 700,
+    },
+
   ];
 
   return (
@@ -41,7 +54,9 @@ export default function AppDataTable() {
             <TextField variant='outlined' label='Search' />
           </Grid>
           <Grid item xs={4}>
-            <Link to="/applications/create"><Button variant='contained'>Create Application</Button></Link>
+            <Link to="/applications/create">
+              <Button variant='contained'>Create Application</Button>
+            </Link>
           </Grid>
         </Grid>
       </Stack>
