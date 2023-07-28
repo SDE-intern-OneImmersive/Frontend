@@ -33,7 +33,11 @@ export default function AppCreate() {
             })
             .catch((error) => {
                 console.log(error);
-                alert('Failed to Create Application');
+                if (error.response && error.response.status === 400) {
+                    alert('Failed to Create Application: ' + error.response.data.error);
+                } else {
+                    alert('Failed to Create Application: Something went wrong.');
+                }
             });
     }
 
