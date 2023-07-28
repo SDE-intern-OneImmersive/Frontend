@@ -273,6 +273,12 @@ i {
   width: 100%;
 }
 
+#AppCreateTextInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .css-vj1n65-MuiGrid-root {
   display: flex;
 }
