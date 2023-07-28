@@ -48,8 +48,8 @@ export default function AppCreate() {
     return (
         <>
             <CssBaseline />
-            <Container maxWidth="lg">
-                <Box style={{display: "flex" }}>
+            <Container id="AppCreateContainer">
+                <Box id="AppCreateTextInput">
                     <Grid>
                         <p style={{ width: "50px" }}>Name:</p>
                         <TextField variant='outlined' value={nameValue} onChange={onChangeName} style={{ paddingTop: "5px", paddingLeft: '10px', }} />

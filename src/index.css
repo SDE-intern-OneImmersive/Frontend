@@ -279,6 +279,10 @@ i {
     align-items: center;
 }
 
+#AppCreateContainer {
+  display: flex;
+  flex-direction: column;
+}
 .css-vj1n65-MuiGrid-root {
   display: flex;
-}
+} 
