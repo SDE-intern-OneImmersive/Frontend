@@ -16,8 +16,6 @@ export default function AppDataTable() {
       .get('http://localhost:5000/test')
       .then((response) => {
         // Modify the data to include the "id" property for each row
-        // display name as clickable link to navigate to google
-        
         const modifiedData = response.data.map((row) => ({
           ...row,
           id: row._id, // Use the "_id" property as the "id"
@@ -38,8 +36,13 @@ export default function AppDataTable() {
 
   // Define the columns for the DataGrid
   const columns = [
-    { field: 'name', headerName: 'Name', width: 200, 
-
+    {
+      field: 'name', headerName: 'Name', width: 200,
+      renderCell: (params) => (
+        <Link to={`/applications/${data.id}`} >
+          {params.value}
+        </Link>
+      ),
     },
     { field: 'Registry', headerName: 'Registry', width: 200 },
     { field: 'Link', headerName: 'URL', width: 700, },
