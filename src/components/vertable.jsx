@@ -1,36 +1,56 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
+import axios from 'axios';
 
+const NameLink = (params) => {
+    const name = params.value;
+    return <Link to={`/name/${name}`}>{name}</Link>;
+  };
+  
 const columns = [
-    { field: 'name', headerName: 'Name', width: 70 },
-    { field: 'status', headerName: 'Status', width: 110 },
-    { field: 'app', headerName: 'Application', width: 150 },
-    { field: 'platform', headerName: 'Platform', width: 90 },
-    { field: 'http', headerName: 'HTTP Enabled', width: 130 },
-    { field: 'turn', headerName: 'TURN Enabled', width: 130 },
-    { field: 'date', headerName: 'Created', width: 140 },
-    { field: 'lastupdate', headerName: 'Last Updated', width: 150 },
+  { field: 'name', headerName: 'Name', width: 200, renderCell: NameLink }, // Use the NameLink component for rendering
+  // Other columns...
 ];
 
-const rows = [
-    {id: 0, name: 'v_9', status: 'Pending', app: 'Hello world', platform:'Linux', http: "True", turn:'True', date:"1 month ago", lastupdate: "1 week ago"},
-    {id: 1, name: 'v_3', status: 'Inactive', app: 'Maaya_verse', platform:'Linux', http: "True", turn:'True', date:"2 month ago", lastupdate: "2 days ago"},
-];
+
 
 export default function VerDataTable() {
-    return (
-        <div style={{ height: 400, width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 5 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </div>
-    );
+  const [data, setData] = React.useState([]);
+  React.useEffect(() => {
+    axios
+      .get('http://localhost:5000/test')
+      .then((response) => {
+        const modifiedData = response.data.map((row) => ({
+          ...row,
+          id: row._id,
+        }));
+        setData(modifiedData);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Failed to fetch data from the server.');
+      });
+  }, []);
+
+  return (
+    <>
+      <Stack direction="row" spacing={2}>
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <TextField variant='outlined' label='Search' />
+          </Grid>
+          <Grid item xs={4}>
+          </Grid>
+        </Grid>
+      </Stack>
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid rows={data} columns={columns} pageSize={5} />
+      </div>
+    </>
+  );
 }

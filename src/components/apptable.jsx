@@ -34,16 +34,39 @@ export default function AppDataTable() {
     window.open(url, '_blank');
   };
 
-  // Define the columns for the DataGrid
+  // Custom click handler for the delete button
+  const handleDeleteClick = (id,name) => {
+    
+    axios
+      .delete(`http://localhost:5000/test/${id}`,{
+        params: { name: name }
+      })
+      .then((response) => {
+
+        setData((prevData) => prevData.filter((row) => row.id !== id));
+        alert('Entry deleted successfully!'+ id + name);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Failed to delete the entry.');
+      });
+  };
+
+  // Define the columns for the DataGrid, including the delete button
   const columns = [
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'Registry', headerName: 'Registry', width: 200 },
+    { field: 'Link', headerName: 'URL', width: 700 },
     {
-      field: 'Link',
-      headerName: 'URL',
-      width: 700,
+      field: 'delete',
+      headerName: 'Delete',
+      width: 100,
+      renderCell: (params) => (
+        <Button variant="outlined" onClick={() => handleDeleteClick(params.row.id,params.row.name)}>
+          Delete
+        </Button>
+      ),
     },
-
   ];
 
   return (

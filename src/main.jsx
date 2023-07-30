@@ -16,6 +16,7 @@ import AppDataTable from './components/apptable';
 import DashDataTable from './components/dashtable';
 import VerDataTable from './components/vertable';
 import AppCreate from './components/appcreate';
+import NameDetailPage from './components/namedetailpage';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Profile />
       },
+      {
+        path: '/name/:name',
+        element: <NameDetailPage/>
+      }
     ]
   }
 ])
