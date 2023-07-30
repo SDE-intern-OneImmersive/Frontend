@@ -7,7 +7,7 @@ export default function SideLayout() {
                 <div id="OneImmlogo">
                     <img src="src\assets\icon.jpg" alt="One Immersive" width="100px" />
                 </div>
-                <h1>Scalable Pixel Streaming</h1>
+                <h1>Scalable XR Pixel Streaming</h1>
                 <nav>
                     <ul>
                         <li>

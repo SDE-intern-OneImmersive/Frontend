@@ -64,9 +64,8 @@ export default function AppCreate() {
                         Submit
                     </Button>
                 </Box>
-
-                <Box>
                 <h2 style={{display: "flex", justifyContent: "center"}}>OR</h2>
+                <Box id="AppCreateDropBox">
                 <DropFileInput onFileChange={(files) => onFileChange(files)} />
             </Box>
         </Container >
