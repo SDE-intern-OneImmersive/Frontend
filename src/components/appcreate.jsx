@@ -3,10 +3,11 @@ import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { Button, Grid, Table, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import axios from 'axios';
 
 import DropFileInput from './Drop-box/DropFileInput';
+// import { Link } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom';
 
 export default function AppCreate() {
@@ -27,6 +28,7 @@ export default function AppCreate() {
             .then((response) => {
                 console.log(response);
                 alert('Created New Application: ' + response.data.name);
+                
                 // const history = useHistory();
                 // Navigate to the "/applications" page
                 // history.push('/applications');
@@ -48,8 +50,8 @@ export default function AppCreate() {
     return (
         <>
             <CssBaseline />
-            <Container maxWidth="lg">
-                <Box style={{display: "flex" }}>
+            <Container id="AppCreateContainer">
+                <Box id="AppCreateTextInput">
                     <Grid>
                         <p style={{ width: "50px" }}>Name:</p>
                         <TextField variant='outlined' value={nameValue} onChange={onChangeName} style={{ paddingTop: "5px", paddingLeft: '10px', }} />
@@ -57,19 +59,15 @@ export default function AppCreate() {
                     <Grid>
                         <p>Registry:</p>
                         <TextField variant='outlined' value={registryValue} onChange={onChangeRegistry} style={{ paddingTop: "5px", paddingBottom: "5px", paddingLeft: '10px', }} />
-
                     </Grid>
-
                     <Button variant='contained' onClick={CreateAppfun} >
                         Submit
                     </Button>
                 </Box>
-
-                <Box>
                 <h2 style={{display: "flex", justifyContent: "center"}}>OR</h2>
+                <Box id="AppCreateDropBox">
                 <DropFileInput onFileChange={(files) => onFileChange(files)} />
             </Box>
-
         </Container >
 
         </>

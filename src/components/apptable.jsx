@@ -54,6 +54,7 @@ export default function AppDataTable() {
 
   // Define the columns for the DataGrid, including the delete button
   const columns = [
+<<<<<<< HEAD
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'Registry', headerName: 'Registry', width: 200 },
     { field: 'Link', headerName: 'URL', width: 700 },
@@ -67,6 +68,18 @@ export default function AppDataTable() {
         </Button>
       ),
     },
+=======
+    {
+      field: 'name', headerName: 'Name', width: 200,
+      renderCell: (params) => (
+        <Link to={`/applications/${data.id}`} >
+          {params.value}
+        </Link>
+      ),
+    },
+    { field: 'Registry', headerName: 'Registry', width: 200 },
+    { field: 'Link', headerName: 'URL', width: 700, },
+>>>>>>> 14d54f3b9a4d253291253a7170721f88d3a0c5e0
   ];
 
   return (

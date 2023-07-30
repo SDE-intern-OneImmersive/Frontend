@@ -16,7 +16,11 @@ import AppDataTable from './components/apptable';
 import DashDataTable from './components/dashtable';
 import VerDataTable from './components/vertable';
 import AppCreate from './components/appcreate';
+<<<<<<< HEAD
 import NameDetailPage from './components/namedetailpage';
+=======
+import ApplicationDetails from './components/appdetails';
+>>>>>>> 14d54f3b9a4d253291253a7170721f88d3a0c5e0
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: "/applications",
             element: <AppDataTable />
+          },
+          {
+            path: "/applications/:applicationId",
+            element: <ApplicationDetails />
           },
           {
             path: "/applications/create",
