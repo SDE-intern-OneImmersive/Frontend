@@ -17,6 +17,9 @@ export default function SideLayout() {
                             <Link to={'/applications'}>Application</Link>
                         </li>
                         <li>
+                            <Link to={"/appversions"}>Versions</Link>
+                        </li>
+                        <li>
                             <Link to={"/version"}>Instances</Link>
                         </li>
                         <li>

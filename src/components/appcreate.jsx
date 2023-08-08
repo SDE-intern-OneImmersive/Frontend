@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Button, Grid, TextField } from '@mui/material';
+
 import axios from 'axios';
 
 import DropFileInput from './Drop-box/DropFileInput';
@@ -27,7 +28,7 @@ export default function AppCreate() {
         axios.post('http://localhost:5000/test/create', newApp)
             .then((response) => {
                 console.log(response);
-                alert('Created New Application: ' + response.data.name);
+                alert('Created New Application named : ' + response.data.message);
                 
                 // const history = useHistory();
                 // Navigate to the "/applications" page
@@ -64,10 +65,13 @@ export default function AppCreate() {
                         Submit
                     </Button>
                 </Box>
-                <h2 style={{display: "flex", justifyContent: "center"}}>OR</h2>
+                <h2 style={{display: "flex", justifyContent: "center"}}></h2>
                 <Box id="AppCreateDropBox">
-                <DropFileInput onFileChange={(files) => onFileChange(files)} />
-            </Box>
+                    <DropFileInput onFileChange={(files) => onFileChange(files)} />
+                    <Button variant='contained' onClick={CreateAppfun} >
+                        Submit
+                    </Button>
+                </Box>
         </Container >
 
         </>

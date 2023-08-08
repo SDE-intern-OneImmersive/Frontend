@@ -15,12 +15,8 @@ export default function AppDataTable() {
     axios
       .get('http://localhost:5000/test')
       .then((response) => {
-        // Modify the data to include the "id" property for each row
-        const modifiedData = response.data.map((row) => ({
-          ...row,
-          id: row._id, // Use the "_id" property as the "id"
-        }));
-        setData(modifiedData); // Set the modified data to the state
+        setData(response.data); // Set the response data to the state directly
+        console.log("data is :" + response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -28,23 +24,15 @@ export default function AppDataTable() {
       });
   }, []);
 
-  // Custom click handler for the links in the DataGrid
-  const handleLinkClick = (event, url) => {
-    event.preventDefault();
-    window.open(url, '_blank');
-  };
-
   // Custom click handler for the delete button
-  const handleDeleteClick = (id,name) => {
-    
+  const handleDeleteClick = (id, name) => {
     axios
-      .delete(`http://localhost:5000/test/${id}`,{
+      .delete(`http://localhost:5000/test/${id}`, {
         params: { name: name }
       })
       .then((response) => {
-
-        setData((prevData) => prevData.filter((row) => row.id !== id));
-        alert('Entry deleted successfully!'+ id + name);
+        setData((prevData) => prevData.filter((row) => row._id !== id));
+        alert('Application named : "' + name + '" and all its versions are deleted successfully');
       })
       .catch((error) => {
         console.log(error);
@@ -52,36 +40,53 @@ export default function AppDataTable() {
       });
   };
 
-  // Define the columns for the DataGrid, including the delete button
   const columns = [
-<<<<<<< HEAD
-    { field: 'name', headerName: 'Name', width: 200 },
-    { field: 'Registry', headerName: 'Registry', width: 200 },
-    { field: 'Link', headerName: 'URL', width: 700 },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: (params) => (
+        // Use the Link component to wrap the name and provide the link to AppVersionT
+        <Link to={`/appversions/${encodeURIComponent(params.row._id)}`}>
+          {params.row.name}
+        </Link>
+      ),
+    },
+    { field: 'versionname', headerName: 'Active Version', width: 150 },
+    { field: 'registry', headerName: 'Registry', width: 200 },
+    {
+      field: 'link',
+      headerName: 'Streaming Link',
+      width: 200,
+      renderCell: (params) => (
+        <Button
+          variant="outlined"
+          onClick={() => {
+            const link = params.row.link;
+            if (link.startsWith('http://') || link.startsWith('https://')) {
+              window.open(link, '_blank');
+            } else {
+              window.open(`http://${link}`, '_blank'); // Add "http://" prefix if missing
+            }
+          }}
+        >
+          Play Game
+        </Button>
+      ),
+    },
+    { field: 'createdAt', headerName: 'Created At', width: 200 },
     {
       field: 'delete',
       headerName: 'Delete',
-      width: 100,
+      width: 200,
       renderCell: (params) => (
-        <Button variant="outlined" onClick={() => handleDeleteClick(params.row.id,params.row.name)}>
+        <Button variant="outlined" onClick={() => handleDeleteClick(params.row._id, params.row.name)}>
           Delete
         </Button>
       ),
     },
-=======
-    {
-      field: 'name', headerName: 'Name', width: 200,
-      renderCell: (params) => (
-        <Link to={`/applications/${data.id}`} >
-          {params.value}
-        </Link>
-      ),
-    },
-    { field: 'Registry', headerName: 'Registry', width: 200 },
-    { field: 'Link', headerName: 'URL', width: 700, },
->>>>>>> 14d54f3b9a4d253291253a7170721f88d3a0c5e0
   ];
-
+  const getRowId = (row) => row._id;
   return (
     <>
       <Stack direction="row" spacing={2}>
@@ -97,7 +102,7 @@ export default function AppDataTable() {
         </Grid>
       </Stack>
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={data} columns={columns} pageSize={5} />
+        <DataGrid rows={data} columns={columns} pageSize={5} getRowId={getRowId} />
       </div>
     </>
   );
